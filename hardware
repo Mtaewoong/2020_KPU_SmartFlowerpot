@@ -22,7 +22,7 @@ void loop() {
   int test = analogRead(Moisture);
   
   // put your main code here, to run repeatedly:
-  Intensity=analogRead(AD5);//读取AD5的数值存入Intensity
+  Intensity=analogRead(AD5);
   Serial.print("습도(%)=");
   Serial.print((1000-test)/10);
   Serial.print("|DO=");
