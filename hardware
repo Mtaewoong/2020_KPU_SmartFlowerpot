@@ -1,0 +1,62 @@
+
+#define Moisture A0//습도
+#define DO 7
+#define AD5 A5
+#define pump 8
+
+int Intensity=0;
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(Moisture,INPUT);
+  pinMode(DO,INPUT);
+  pinMode(AD5,INPUT);
+  pinMode(pump,OUTPUT);
+  digitalWrite(pump,HIGH);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int time_water=5000;
+  int Low_water=500;  int High_water=700;int No_water=900;
+  int light=7;
+  int test = analogRead(Moisture);
+  
+  // put your main code here, to run repeatedly:
+  Intensity=analogRead(AD5);
+  Serial.print("습도(%)=");
+  Serial.print((1000-test)/10);
+  Serial.print("|DO=");
+  Serial.println(digitalRead(DO));
+  Serial.print("조도(%)=");
+  Serial.println(Intensity);
+
+
+  if(test >=Low_water && test<=High_water){
+    Serial.print("Humidity is normal.\n");
+    }
+  else if(test <= Low_water){
+    Serial.print("Humidity\n");
+    }
+  else{
+    if(test >= No_water){
+      Serial.print("Humidity is low\n");
+      Serial.print("pump open\n");
+      digitalWrite(pump,HIGH);
+      delay(5000);
+      digitalWrite(pump,LOW);
+      Serial.print("pump close\n");
+    }
+    else{
+      Serial.print("Humidity is low\n");
+      Serial.print("pump open\n");
+      digitalWrite(pump,HIGH);
+      delay(2000);
+      digitalWrite(pump,LOW);
+      Serial.print("pump close\n");
+      }
+  }
+  if(Intensity<=light){
+    Serial.print("Intensity is Low\n");
+  }
+    delay(1500);
+}
